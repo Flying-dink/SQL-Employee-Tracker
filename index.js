@@ -1,7 +1,7 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable =require ('console.table');
-
+require('dotenv').config()
  //Prompts
 
  const promptMessages = {
@@ -18,11 +18,12 @@ const cTable =require ('console.table');
 //connection to SQL
  const connection = mysql.createConnection({
      host: 'localhost',
-     port: '3306',
+    // port: '3306',
      user: 'root',
 
-     password: 'project2021!',
-     database: 'employees'
+     password: process.env.MYSQL_PASSWORD,
+    // database: 'employees'
+    database:'employeegroup',
  });
 
  connection.connect(err => {
@@ -59,10 +60,35 @@ const cTable =require ('console.table');
                   case promptMessages.viewByDepartment:
                       viewByDepartment();
                       break;
-                      
+
                       case promptMessages.viewByManager:
                           viewByManager();
+                          break;
+
+                          case promptMessages.removeEmployee:
+                              remove('delete');
+                              break;
+
+                              case promptMessages.updateRole:
+                                  remove('role');
+                                  break;
+
+                                    case promptMessages.viewAllRoles:
+                                        viewAllRoles();
+                                        break;
+
+                                        case promptMessages.exit:
+                                            connection.end();
+                                            break;
+
+
+
+
+
 
           }
       
-  })
+  })};
+
+
+  

@@ -99,24 +99,46 @@ function prompt() {
   //});
 //}
 
-const viewAllEmployees = async () =>{
-    console.log ('View All Employees');
-    try {
-        let query = 'SELECT * FROM employee';
-        connection.query(query, function (err,res) {
-            if (err) throw err;
-            let employeeArray = [];
-            res.forEach(employeeArray.push(employee));
-            console.table(employeeArray);
-            initialAction();
+//const viewAllEmployees = async () =>{
+  //  console.log ('View All Employees');
+   // try {
+     //   let query = 'SELECT * FROM employee';
+       // connection.query(query, function (err,res) {
+            
+         //   let employeeArray = [];
+           // res.forEach(employeeArray.push(employee));
+            //console.table(employeeArray);
+            //initialAction();
                 
 
-        });
-    }catch (err) {
-        console.log(err);
-        initialAction();
-    };
+        //});
+    //}catch (err) {
+      //  console.log(err);
+        //initialAction();
+    //};
     
+//}
+
+function viewAllEmployees() {
+console.log("viewing employees\n");
+
+var query =
+`SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r. salary, CONCAT(m.first_name, ' ', m.last_name) AS manager
+FROM employee e
+LEFT JOIN role r
+ON e.role_id = r.id
+LEFT JOIN department d
+ON d. id = r. department_id
+LEFT JOIN employee m
+ON m. id = e. manager`
+
+connection.query(query, function(err,res) {
+  if (err) throw err;
+  console.table(res);
+  console.log("Employees viewed!\n");
+
+  Prompt();
+});
 }
 
 function viewByDepartment() {
@@ -135,7 +157,7 @@ function viewByDepartment() {
   });
 }
 
-function viewBYManager() {
+function viewByManager() {
   const query = `SELECT CONCAT(manager.first_name, ' ' , manager.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
     FROM employee
    LEFT JOIN employee manager on manager.id = employee.manager_id
@@ -199,7 +221,7 @@ async function addEmployee() {
             name: "manager",
             type: "list",
             choices: "choices",
-            message: "Choose teh employee Manager:",
+            message: "Choose the employee Manager:",
           },
         ]);
 
@@ -249,7 +271,7 @@ async function addEmployee() {
               {
                   name: "action",
                   type: "list",
-                  message: "In order to proceed an employee, an ID must be entered. View all employees to get"+
+                  message: "In order to show an employee, an ID must be entered. View all employees to get"+
                   "the employee ID. Do you know the employee ID?",
                   choices: [promptQ.yes, promptQ.no]
 
@@ -343,4 +365,4 @@ async function addEmployee() {
       }
     })
 }    
-
+module. exports= connection; 

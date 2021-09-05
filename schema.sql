@@ -1,9 +1,14 @@
+
+
 DROP DATABASE IF EXISTS employeegroup;
 CREATE DATABASE employeegroup;
 USE employeegroup;
+
+
 CREATE TABLE department (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR (30) UNIQUE NOT NULL
+    id INT  AUTO_INCREMENT NOT NULL,
+    department_name VARCHAR (30) NOT NULL,
+    PRIMARY KEY (id)
 
 );
 CREATE TABLE role (
@@ -15,14 +20,14 @@ CREATE TABLE role (
     CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department (id) ON DELETE CASCADE
 );
 CREATE TABLE employee (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT NOT NULL,
     first_name VARCHAR(30)NOT NULL,
     last_name VARCHAR (30)NOT NULL,
-    role_id INT UNSIGNED NOT NULL,
-    INDEX role_ind (role_id),
-    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL 
+    role_id INT ,
+    manager_id INT,
+    
 );
-use employees ;
+use employeegroup ;
 
 INSERT INTO role department(name)
 VALUES 

@@ -124,7 +124,7 @@ console.log("viewing employees\n");
 
 var query =
 `SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager_id
-FROM employee.e
+FROM employeegroup
 LEFT JOIN role.r
 ON e.role_id = r.id
 LEFT JOIN department_id

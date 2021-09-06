@@ -123,14 +123,14 @@ function viewAllEmployees() {
 console.log("viewing employees\n");
 
 var query =
-`SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r. salary, CONCAT(m.first_name, ' ', m.last_name) AS manager
-FROM employee e
-LEFT JOIN role r
+`SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r. salary, CONCAT(m.first_name, ' ', m.last_name) AS employee
+FROM employee.e
+LEFT JOIN role.r
 ON e.role_id = r.id
-LEFT JOIN department d
-ON d. id = r. department_id
+LEFT JOIN department_id
+ON d. id = r.department_id
 LEFT JOIN employee m
-ON m. id = e. manager`
+ON m. id = e.manager`
 
 connection.query(query, function(err,res) {
   if (err) throw err;
@@ -158,7 +158,7 @@ function viewByDepartment() {
 }
 
 function viewByManager() {
-  const query = `SELECT CONCAT(manager.first_name, ' ' , manager.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
+  const query = `SELECT CONCAT(employee.first_name, ' ' , employee.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
     FROM employee
    LEFT JOIN employee manager on manager.id = employee.manager_id
    INNER JOIN  role ON (role.id = employee.role_id && employee. manager_id != 'NULL')

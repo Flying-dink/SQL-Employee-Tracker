@@ -123,14 +123,14 @@ function viewAllEmployees() {
 console.log("viewing employees\n");
 
 var query =
-`SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r. salary, CONCAT(m.first_name, ' ', m.last_name) AS employee
+`SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager_id
 FROM employee.e
 LEFT JOIN role.r
 ON e.role_id = r.id
 LEFT JOIN department_id
-ON d. id = r.department_id
-LEFT JOIN employee m
-ON m. id = e.manager`
+ON d.id = r.department_id
+LEFT JOIN employee.m
+ON m.id = e.manager`
 
 connection.query(query, function(err,res) {
   if (err) throw err;
@@ -143,7 +143,7 @@ connection.query(query, function(err,res) {
 
 function viewByDepartment() {
   const query = `SELECT department.name AS department, role.title, employee.id, employee, first_name, employee.last_name
-    FROM employee
+    FROM employeegroup
     LEFT JOIN role ON role.id = employee.role_id)
     LEFT JOIN department ON (department.id = role.department_id)
     ORDER BY department.name;`;
@@ -159,7 +159,7 @@ function viewByDepartment() {
 
 function viewByManager() {
   const query = `SELECT CONCAT(employee.first_name, ' ' , employee.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
-    FROM employee
+    FROM employeegroup
    LEFT JOIN employee manager on manager.id = employee.manager_id
    INNER JOIN  role ON (role.id = employee.role_id && employee. manager_id != 'NULL')
    INNER JOIN department ON (department.id = role.department_id)
@@ -176,8 +176,8 @@ function viewByManager() {
 
 function viewAllRoles() {
   const query = `SELECT role.title, employee.id, employee.first_name, employee.last_name, department.name AS department
-    FROM employee
-    LEFT JOIN role ON (role. id = employee.role_id)
+    FROM employeegroup
+    LEFT JOIN role ON (role.id = employee.role_id)
     LEFT JOIN department ON (department.id = role.department_id)
     ORDER BY role.title;`;
   connection.query(query, (err, res) => {

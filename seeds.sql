@@ -3,7 +3,7 @@
 INSERT INTO department
     (name)
 VALUES
-    ('Sales'),
+    ('Sales'),department
     ('Engineering'),
     ('Finance'),
     ('Legal');

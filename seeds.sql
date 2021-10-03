@@ -1,9 +1,7 @@
 
 
-INSERT INTO department
+INSERT INTO department ('name')
 VALUES 
-
-('Managment'),
 ('Frontline'),
 ('Sales'),
 ('Inflight');

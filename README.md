@@ -10,7 +10,7 @@ Javascript,
 Node.js
 ## Usage
 A walk through video link
-https://drive.google.com/file/d/1jV78hFvnsMAnYn9vjihSZXailvCcF2bi/view
+https://watch.screencastify.com/v/i8m5WdQqborSzZjtz7g7
 ## Contributors
 None
 ## Collaborators
